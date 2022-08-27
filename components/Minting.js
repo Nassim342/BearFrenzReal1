@@ -423,7 +423,7 @@ const MainMint = () => {
                                 fontSize="20px"
                                 marginTop="10px"
                                     onClick={freeMint}>
-                                    MINT A FREE NFT NOW!
+                                    MINT A FREE NFT NOW
                                 </Button>
                             ) : (
                                 <Button
