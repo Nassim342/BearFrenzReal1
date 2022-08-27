@@ -1,9 +1,9 @@
 import mintingDapp from "./abi2.json";
 
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
-const web3 = createAlchemyWeb3("https://eth-goerli.g.alchemy.com/v2/KM-fdOe3U52el4ZvdrmEdjuzxE-Z8V5X");
+const web3 = createAlchemyWeb3("https://eth-mainnet.g.alchemy.com/v2/Q2WADcmWSaZ7nEJbyQFXGE9bGhU_N3-1");
 
-const contractAddress = "0x5f9078d95b30ea815f03b76AA0E06b900AfD4b64";
+    const contractAddress = "0x672194Ca167A9cF4822EDF4Dbc62D7f2454dD955";
 const contract = new web3.eth.Contract(mintingDapp, contractAddress)
 
 export const getSaleState = async () => {

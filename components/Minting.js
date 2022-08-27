@@ -14,7 +14,7 @@ const keccak256 = require('keccak256')
 
 const MainMint = () => {
 
-    const contractAddress = "0xd5e510bEaba86A65408f7fF27bC9D38f33E87dAa";
+    const contractAddress = "0x672194Ca167A9cF4822EDF4Dbc62D7f2454dD955";
 	const [currentAccount, setCurrentAccount] = useState('');
     const [mintAmount, setMintAmount] = useState(1);
     const [totalSupply, setTotalSupply] = useState(0)
@@ -26,7 +26,7 @@ const MainMint = () => {
     const [isVip, setIsVip] = useState(false);
     const [hasMinted, setHasMinted] = useState(false);
     const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
-    const web3 = createAlchemyWeb3("https://eth-goerli.g.alchemy.com/v2/KM-fdOe3U52el4ZvdrmEdjuzxE-Z8V5X");
+    const web3 = createAlchemyWeb3("https://eth-mainnet.g.alchemy.com/v2/Q2WADcmWSaZ7nEJbyQFXGE9bGhU_N3-1");
 
     useEffect(() => {
         checkCorrectNetwork()
@@ -45,11 +45,12 @@ const MainMint = () => {
             checkMinted()
             checkVipSale()
            },5000)
+           
 
         provider.on('accountsChanged', function (accounts) {
             setCurrentAccount(accounts[0]) ;
         });
-
+        
         return()=> clearInterval(interval)
 	})
 
@@ -72,7 +73,7 @@ const MainMint = () => {
 			}
 			let chainId = await ethereum.request({ method: 'eth_chainId' })
 
-			const rinkebyChainId = '0x5'
+			const rinkebyChainId = '0x1'
 
 			const devChainId = 1337
 			const localhostChainId = `0x${Number(devChainId).toString(16)}`
@@ -104,7 +105,7 @@ const MainMint = () => {
 		let chainId = await ethereum.request({ method: 'eth_chainId' })
 		console.log('Connected to chain:' + chainId)
 
-		const goerliChainId = '0x5'
+		const goerliChainId = '0x1'
 
 		const devChainId = 1337
 		const localhostChainId = `0x${Number(devChainId).toString(16)}`
@@ -121,14 +122,14 @@ const MainMint = () => {
         const network = await ethereum.request({
             method: 'wallet_switchEthereumChain',
             params: [{ 
-                chainId: '0x5' 
+                chainId: '0x1' 
             }]});
         setCorrectNetwork(true)
     }
 
     const checkMinted = async () => {
         if (window.ethereum) {
-            const contractAddress = "0xd5e510bEaba86A65408f7fF27bC9D38f33E87dAa";
+            const contractAddress = "0x672194Ca167A9cF4822EDF4Dbc62D7f2454dD955";
             const contract = new web3.eth.Contract(mintingDapp, contractAddress)
             const result = await contract.methods.freeMint(currentAccount).call()
             if (result === '1') {
@@ -739,20 +740,45 @@ const MainMint = () => {
                                 </Button>)}
                         </GridItem>
                     </Grid>
+                   ) : !isSaleActive && isVip ? (
+                        <Flex align="center" justify="center">
+                            <Text
+                                color="white"
+                                fontSize="45px"
+                                letterSpacing="-5,5%"
+                                fontFamily="inherit"
+                                textShadow="0 2px 2px #000000"
+                            >
+                                You&apos;re VIP but the sale hasn&apos;t started yet.
+                            </Text>
+                        </Flex>
+                    )  : !isSaleActive && isWhitelisted ? (
+                        <Flex align="center" justify="center">
+                            <Text
+                                color="white"
+                                fontSize="45px"
+                                letterSpacing="-5,5%"
+                                fontFamily="inherit"
+                                textShadow="0 2px 2px #000000"
+                            >
+                                You&apos;re whitelisted but the sale hasn&apos;t started yet.
+                            </Text>
+                        </Flex>
                     ) : (
-                            <Flex align="center" justify="center">
-                                <Text
-                                    color="white"
-                                    fontSize="45px"
-                                    letterSpacing="-5,5%"
-                                    fontFamily="inherit"
-                                    textShadow="0 2px 2px #000000"
-                                >
-                                    Sale has not commenced yet!
-                                </Text>
-                            </Flex>
-                        )
-                                 }
+                        <Flex align="center" justify="center">
+                            <Text
+                                color="white"
+                                fontSize="45px"
+                                letterSpacing="-5,5%"
+                                fontFamily="inherit"
+                                textShadow="0 2px 2px #000000"
+                            >
+                                Sale has not commenced yet!
+                            </Text>
+                        </Flex>
+                    )
+                    
+                }
                 </Flex>
     );
 };
