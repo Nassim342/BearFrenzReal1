@@ -14,7 +14,7 @@ const keccak256 = require('keccak256')
 
 const MainMint = () => {
 
-    const contractAddress = "0x5f9078d95b30ea815f03b76AA0E06b900AfD4b64";
+    const contractAddress = "0xd5e510bEaba86A65408f7fF27bC9D38f33E87dAa";
 	const [currentAccount, setCurrentAccount] = useState('');
     const [mintAmount, setMintAmount] = useState(1);
     const [totalSupply, setTotalSupply] = useState(0)
@@ -128,11 +128,15 @@ const MainMint = () => {
 
     const checkMinted = async () => {
         if (window.ethereum) {
-            const contractAddress = "0x5f9078d95b30ea815f03b76AA0E06b900AfD4b64";
+            const contractAddress = "0xd5e510bEaba86A65408f7fF27bC9D38f33E87dAa";
             const contract = new web3.eth.Contract(mintingDapp, contractAddress)
             const result = await contract.methods.freeMint(currentAccount).call()
             if (result === '1') {
                 setHasMinted(true)
+                console.log(result)
+            } 
+            if (result === "0") {
+                setHasMinted(false)
             }
         }
     }
@@ -148,7 +152,12 @@ const MainMint = () => {
 
             if (whitelisted) {
                 setIsWhitelisted(whitelisted)
-            }
+            } 
+
+            if (!whitelisted) {
+                setIsWhitelisted(whitelisted)
+            } 
+
     }}
 
     const checkVipSale = async () => {
@@ -162,6 +171,10 @@ const MainMint = () => {
 
             if (VIP) {
                 setIsVip(VIP)
+            } 
+            
+            if (!VIP) {
+                setIsVip(false)
             }
     }}
 
@@ -428,12 +441,13 @@ const MainMint = () => {
                                 marginTop = "10px">
                                     TXN SUBMITTING
                                 </Button>)}
-                    </div>) : !isWhitelisted && isSaleActive || hasMinted && isSaleActive || !isFreeActive && isSaleActive ? (
-                    <Grid h="200px" templateRows='repeat(4, 1fr)' templateColumns="repeat(2, 1fr)" gap={4}>
+                    </div>) : isWhitelisted && isSaleActive ? (
+                        <Grid h="200px" templateRows='repeat(4, 1fr)' templateColumns="repeat(2, 1fr)" gap={4}>
                         <GridItem rowSpan={4} colSpan={1}>
                         <Image
                         width="400px"
-                        src="https://i.gyazo.com/b18f4e6cd6afb317f1b948417adbcfd2.png"
+                        src="https://i.gyazo.com/6ae8f282861601441f90adf0aa83f552.gif"
+                        alt=""
                         >
 
                         </Image>
@@ -446,148 +460,11 @@ const MainMint = () => {
                         boxShadow="0px -5px 10px 10px rgb(0, 0, 0, .4)">
                             <Text
                                     fontSize="20px"
-                                    marginLeft="12%"
+                                    marginLeft="5%"
                                     marginTop="5%" >
-                                Mint cost: <Input 
-                                type="number"
-                                readOnly
-                                fontFamily="inherit"
-                                backgroundColor="transparent"
-                                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
-                                width="90px"
-                                height="40px"
-                                color="#50ad4e"
-                                borderColor="transparent"
-                                textAlign="center"
-                                fontSize="20px"
-                                value={mintAmount * 0.006}/>
+                                You&apos;re Whitelisted!
+                                        
                             </Text>
-                        </GridItem>
-                        <GridItem className="mintamount" rowSpan={1} colSpan={1}
-                        backgroundColor="white"
-                        zIndex="1"
-                        marginBottom="-4px"
-                        textColor="#50ad4e"
-                        >
-                            There are {totalSupply}/5555 bears minted.
-                        </GridItem>
-                        <GridItem className="mintamount2" rowSpan={1} colSpan={1}
-                        backgroundColor="white"
-                        textColor="#50ad4e"
-                        zIndex="0"
-                        marginBottom="-4px"
-                        boxShadow="0px 0px 10px 10px rgb(0, 0, 0, .4)"><Button
-                                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
-                                _hover={{ bg: '#61c25f', color: 'white'
-                                }}
-                                bg= "#50ad4e"
-                                color="white"
-                                borderColor="transparent"
-                                fontFamily = "inherit"
-                                colorScheme= "#50ad4e"
-                                padding="10px"
-                                borderRadius="10px"
-                                paddingX="20px"
-                                marginLeft="10px"
-                                fontSize="20px"
-                                marginTop="-4%"
-                                onClick={handleDecrement}>
-                                    -
-                        </Button>
-                        <Input 
-                                type="number"
-                                marginLeft = "20px"
-                                readOnly
-                                fontFamily="inherit"
-                                backgroundColor="transparent"
-                                color="#50ad4e"
-                                position="relative"
-                                height="50px"
-                                width="50px"
-                                marginTop="8%"
-                                borderColor="transparent"
-                                textAlign="center"
-                                fontSize="30px"
-                                value={mintAmount}/>
-                        <Button
-                                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
-                                _hover={{ bg: '#61c25f', color: 'white'
-                                }}
-                                bg= "#50ad4e"
-                                color="white"
-                                borderColor="transparent"
-                                fontFamily = "inherit"
-                                colorScheme= "#50ad4e"
-                                padding="10px"
-                                borderRadius="10px"
-                                paddingX="20px"
-                                marginLeft="10px"
-                                fontSize="20px"
-                                marginTop="-4%"
-                                onClick={handleIncrement}>
-                                    +
-                        </Button>
-                        </GridItem>
-                        <GridItem rowSpan={1} colSpan={1}
-                        padding='10px 10px 30px 10px'
-                        borderRadius="0px 0px 10px 10px"
-                        marginBottom="-4px"
-                        backgroundColor="white"
-                        zIndex="0"
-                        boxShadow="0px 20px 10px 10px rgb(0, 0, 0, .4)">
-                            {!isLoading ? (
-                                <Button
-                                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
-                                _hover={{ bg: '#61c25f', color: 'white'
-                                }}
-                                bg= "#50ad4e"
-                                color="white"
-                                borderColor="transparent"
-                                fontFamily = "inherit"
-                                colorScheme= "#50ad4e"
-                                padding="10px"
-                                borderRadius="10px"
-                                paddingX="20px"
-                                marginLeft="10px"
-                                fontSize="20px"
-                                marginTop="10px"
-                                    onClick={handleMint}>
-                                    MINT NOW
-                                </Button>
-                            ) : (
-                                <Button
-                                    isLoading
-                                    loadingText="TXN SUBMITTING"
-                                    borderColor="transparent"
-                                    backgroundColor="white"
-                                    variant='outline'
-                                    borderRadius="5px"
-                                    boxShadow = "0px 2px 2px 1px # 0F0F0F"
-                                    color = "white"
-                                    cursor = "pointer"
-                                    fontFamily = "inherit"
-                                    padding = "15px"
-                                    marginTop = "10px">
-                                    TXN SUBMITTING
-                                </Button>)}
-                        </GridItem>
-                    </Grid>
-                    ) : isWhitelisted && isSaleActive ? (
-                        <Grid h="200px" templateRows='repeat(4, 1fr)' templateColumns="repeat(2, 1fr)" gap={4}>
-                        <GridItem rowSpan={4} colSpan={1}>
-                        <Image
-                        width="400px"
-                        src="https://i.gyazo.com/b18f4e6cd6afb317f1b948417adbcfd2.png"
-                        >
-
-                        </Image>
-                        </GridItem>
-                        <GridItem rowSpan={1} colSpan={1} marginTop="20%"
-                        backgroundColor="white"
-                        borderRadius="10px 10px 0px 0px"
-                        textColor="#50ad4e"
-                        marginBottom="-4px"
-                        boxShadow="0px -5px 10px 10px rgb(0, 0, 0, .4)">
                             <Text
                                     fontSize="20px"
                                     marginLeft="12%"
@@ -613,7 +490,7 @@ const MainMint = () => {
                         marginBottom="-4px"
                         textColor="#50ad4e"
                         >
-                            There are {totalSupply}/5555 bears minted.
+                            There are {totalSupply}/4000 bears minted.
                         </GridItem>
                         <GridItem className="mintamount2" rowSpan={1} colSpan={1}
                         backgroundColor="white"
@@ -717,6 +594,151 @@ const MainMint = () => {
                         </GridItem>
                     </Grid>
 
+                    ) : !isWhitelisted && isSaleActive || hasMinted && isSaleActive || !isFreeActive && isSaleActive ? (
+                    <Grid h="200px" templateRows='repeat(4, 1fr)' templateColumns="repeat(2, 1fr)" gap={4}>
+                        <GridItem rowSpan={4} colSpan={1}>
+                        <Image
+                        width="400px"
+                        src="https://i.gyazo.com/6ae8f282861601441f90adf0aa83f552.gif"
+                        alt=""
+                        >
+
+                        </Image>
+                        </GridItem>
+                        <GridItem rowSpan={1} colSpan={1} marginTop="20%"
+                        backgroundColor="white"
+                        borderRadius="10px 10px 0px 0px"
+                        textColor="#50ad4e"
+                        marginBottom="-4px"
+                        boxShadow="0px -5px 10px 10px rgb(0, 0, 0, .4)">
+                            <Text
+                                    fontSize="20px"
+                                    marginLeft="12%"
+                                    marginTop="5%" >
+                                Mint cost: <Input 
+                                type="number"
+                                readOnly
+                                fontFamily="inherit"
+                                backgroundColor="transparent"
+                                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+                                width="90px"
+                                height="40px"
+                                color="#50ad4e"
+                                borderColor="transparent"
+                                textAlign="center"
+                                fontSize="20px"
+                                value={mintAmount * 0.006}/>
+                            </Text>
+                        </GridItem>
+                        <GridItem className="mintamount" rowSpan={1} colSpan={1}
+                        backgroundColor="white"
+                        zIndex="1"
+                        marginBottom="-4px"
+                        textColor="#50ad4e"
+                        >
+                            There are {totalSupply}/4000 bears minted.
+                        </GridItem>
+                        <GridItem className="mintamount2" rowSpan={1} colSpan={1}
+                        backgroundColor="white"
+                        textColor="#50ad4e"
+                        zIndex="0"
+                        marginBottom="-4px"
+                        boxShadow="0px 0px 10px 10px rgb(0, 0, 0, .4)"><Button
+                                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+                                _hover={{ bg: '#61c25f', color: 'white'
+                                }}
+                                bg= "#50ad4e"
+                                color="white"
+                                borderColor="transparent"
+                                fontFamily = "inherit"
+                                colorScheme= "#50ad4e"
+                                padding="10px"
+                                borderRadius="10px"
+                                paddingX="20px"
+                                marginLeft="10px"
+                                fontSize="20px"
+                                marginTop="-4%"
+                                onClick={handleDecrement}>
+                                    -
+                        </Button>
+                        <Input 
+                                type="number"
+                                marginLeft = "20px"
+                                readOnly
+                                fontFamily="inherit"
+                                backgroundColor="transparent"
+                                color="#50ad4e"
+                                position="relative"
+                                height="50px"
+                                width="50px"
+                                marginTop="8%"
+                                borderColor="transparent"
+                                textAlign="center"
+                                fontSize="30px"
+                                value={mintAmount}/>
+                        <Button
+                                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+                                _hover={{ bg: '#61c25f', color: 'white'
+                                }}
+                                bg= "#50ad4e"
+                                color="white"
+                                borderColor="transparent"
+                                fontFamily = "inherit"
+                                colorScheme= "#50ad4e"
+                                padding="10px"
+                                borderRadius="10px"
+                                paddingX="20px"
+                                marginLeft="10px"
+                                fontSize="20px"
+                                marginTop="-4%"
+                                onClick={handleIncrement}>
+                                    +
+                        </Button>
+                        </GridItem>
+                        <GridItem rowSpan={1} colSpan={1}
+                        padding='10px 10px 30px 10px'
+                        borderRadius="0px 0px 10px 10px"
+                        marginBottom="-4px"
+                        backgroundColor="white"
+                        zIndex="0"
+                        boxShadow="0px 20px 10px 10px rgb(0, 0, 0, .4)">
+                            {!isLoading ? (
+                                <Button
+                                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+                                _hover={{ bg: '#61c25f', color: 'white'
+                                }}
+                                bg= "#50ad4e"
+                                color="white"
+                                borderColor="transparent"
+                                fontFamily = "inherit"
+                                colorScheme= "#50ad4e"
+                                padding="10px"
+                                borderRadius="10px"
+                                paddingX="20px"
+                                marginLeft="10px"
+                                fontSize="20px"
+                                marginTop="10px"
+                                    onClick={handleMint}>
+                                    MINT NOW
+                                </Button>
+                            ) : (
+                                <Button
+                                    isLoading
+                                    loadingText="TXN SUBMITTING"
+                                    borderColor="transparent"
+                                    backgroundColor="white"
+                                    variant='outline'
+                                    borderRadius="5px"
+                                    boxShadow = "0px 2px 2px 1px # 0F0F0F"
+                                    color = "white"
+                                    cursor = "pointer"
+                                    fontFamily = "inherit"
+                                    padding = "15px"
+                                    marginTop = "10px">
+                                    TXN SUBMITTING
+                                </Button>)}
+                        </GridItem>
+                    </Grid>
                     ) : (
                             <Flex align="center" justify="center">
                                 <Text
