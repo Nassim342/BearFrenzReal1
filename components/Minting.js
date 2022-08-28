@@ -14,7 +14,7 @@ const keccak256 = require('keccak256')
 
 const MainMint = () => {
 
-    const contractAddress = "0x672194Ca167A9cF4822EDF4Dbc62D7f2454dD955";
+    const contractAddress = "0x715978e9c4E45967304A367fE24426Ea1A5c0403";
 	const [currentAccount, setCurrentAccount] = useState('');
     const [mintAmount, setMintAmount] = useState(1);
     const [totalSupply, setTotalSupply] = useState(0)
@@ -129,7 +129,7 @@ const MainMint = () => {
 
     const checkMinted = async () => {
         if (window.ethereum) {
-            const contractAddress = "0x672194Ca167A9cF4822EDF4Dbc62D7f2454dD955";
+            const contractAddress = "0x715978e9c4E45967304A367fE24426Ea1A5c0403";
             const contract = new web3.eth.Contract(mintingDapp, contractAddress)
             const result = await contract.methods.freeMint(currentAccount).call()
             if (result === '1') {
