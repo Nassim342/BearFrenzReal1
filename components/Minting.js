@@ -749,7 +749,7 @@ const MainMint = () => {
                                 fontFamily="inherit"
                                 textShadow="0 2px 2px #000000"
                             >
-                                You&apos;re VIP but the sale hasn&apos;t started yet.
+                                You&apos;re VIP, the sale commences at 5 PM UTC 29.08.
                             </Text>
                         </Flex>
                     )  : !isSaleActive && isWhitelisted ? (
@@ -761,7 +761,7 @@ const MainMint = () => {
                                 fontFamily="inherit"
                                 textShadow="0 2px 2px #000000"
                             >
-                                You&apos;re whitelisted but the sale hasn&apos;t started yet.
+                                You&apos;re whitelisted, the sale commences at 5 PM UTC 29.08.
                             </Text>
                         </Flex>
                     ) : (
@@ -773,7 +773,7 @@ const MainMint = () => {
                                 fontFamily="inherit"
                                 textShadow="0 2px 2px #000000"
                             >
-                                Sale has not commenced yet!
+                                The sale commences at 5 PM UTC 29.08.
                             </Text>
                         </Flex>
                     )
