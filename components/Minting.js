@@ -49,7 +49,7 @@ const MainMint = () => {
             checkWhitelisted()
             checkMinted()
             checkVipSale()
-           },20000)
+           },5000)
            
 
         provider.on('accountsChanged', function (accounts) {
