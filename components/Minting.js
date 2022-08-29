@@ -28,7 +28,8 @@ const MainMint = () => {
     const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
     const web3 = createAlchemyWeb3("https://eth-mainnet.g.alchemy.com/v2/Q2WADcmWSaZ7nEJbyQFXGE9bGhU_N3-1");
 
-    useEffect(() => {const provider = new ethers.providers.Web3Provider(window.ethereum)
+    useEffect(() => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
         const prepare = async () => {   
             setIsSaleActive(await getSaleState());
             setIsFreeActive(await getFreeSaleState());
@@ -777,7 +778,7 @@ const MainMint = () => {
                                 fontFamily="inherit"
                                 textShadow="0 2px 2px #000000"
                             >
-                                The sale commences at 5 PM UTC 29.08.
+                                You&apos;re not WL or VIP, Public sale starts at 5 PM UTC
                             </Text>
                         </Flex>
                     )
