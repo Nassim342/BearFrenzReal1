@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Flex, Link, Spacer, Text } from '@chakra-ui/react';
 import Ethereum from "../public/social-media-icons/ethereum2.png";
 import Twitter from "../public/social-media-icons/twitter.png";
-import Discord from "../public/social-media-icons/Discord.png";
+import Discord from "../public/social-media-icons/opensea.png";
 import Claw from "../public/social-media-icons/clawicon.png";
 import { useStatus } from "../context/statusContext";
 import Image from 'next/image';
@@ -83,7 +83,7 @@ const NavBar = () => {
     return (
         <Flex justify="center" align="center" padding="2px" position="sticky" top="0" backgroundColor="rgb(80, 173, 78, .6)" zIndex="2" boxShadow="10px 10px 30px rgb(80, 173, 78, .8)">
             <Flex justify="space-between" width="12%" marginTop="10px">
-                <Link href="https://www.discord.com"
+                <Link href="https://www.opensea.io"
                 maxWidth="50%">
                     <Image
                     src={Discord}
