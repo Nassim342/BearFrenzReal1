@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Flex, Link, Spacer, Text } from '@chakra-ui/react';
 import Ethereum from "../public/social-media-icons/ethereum2.png";
 import Twitter from "../public/social-media-icons/twitter.png";
-import Discord from "../public/social-media-icons/opensea.png";
+import Discord from "../public/social-media-icons/Opensea.png";
 import Claw from "../public/social-media-icons/clawicon.png";
 import { useStatus } from "../context/statusContext";
 import Image from 'next/image';
