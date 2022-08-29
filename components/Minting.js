@@ -29,14 +29,19 @@ const MainMint = () => {
     const web3 = createAlchemyWeb3("https://eth-mainnet.g.alchemy.com/v2/Q2WADcmWSaZ7nEJbyQFXGE9bGhU_N3-1");
 
     useEffect(() => {
-        checkCorrectNetwork()
-        
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const prepare = async () => {   
             setIsSaleActive(await getSaleState());
             setIsFreeActive(await getFreeSaleState());
             setTotalSupply(await getTotalSupply())
         }
+
+        checkCorrectNetwork()
+        checkIfWalletIsConnected()
+        prepare()
+        checkWhitelisted()
+        checkMinted()
+        checkVipSale()
 
         const interval=setInterval(()=>{
             checkIfWalletIsConnected()
@@ -761,7 +766,7 @@ const MainMint = () => {
                                 fontFamily="inherit"
                                 textShadow="0 2px 2px #000000"
                             >
-                                You&apos;re whitelisted, the sale commences at 5 PM UTC 29.08.
+                                You&apos;re whitelisted, WL sale starts 29.08 5 PM UTC.
                             </Text>
                         </Flex>
                     ) : (
@@ -773,7 +778,7 @@ const MainMint = () => {
                                 fontFamily="inherit"
                                 textShadow="0 2px 2px #000000"
                             >
-                                The sale commences at 5 PM UTC 29.08.
+                                You&apos;re not WL or VIP, Public sale starts at 5 PM UTC
                             </Text>
                         </Flex>
                     )
