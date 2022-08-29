@@ -765,7 +765,7 @@ const MainMint = () => {
                                 fontFamily="inherit"
                                 textShadow="0 2px 2px #000000"
                             >
-                                You're whitelisted, WL sale starts 29.08 5 PM UTC.
+                                You&apos;re whitelisted, WL sale starts 29.08 5 PM UTC.
                             </Text>
                         </Flex>
                     ) : (
